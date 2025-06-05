@@ -1,7 +1,6 @@
 "use client"
 
-import Image from "next/image";
-import WhiteboardCanvas from "./component";
+import WhiteboardCanvas from "./components/WhiteBoardCanvas";
 
 export default function Home() {
    const manageButtonClick = async () => {
