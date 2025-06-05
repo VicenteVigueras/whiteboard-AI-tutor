@@ -17,28 +17,24 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  font-family: 'Inter', sans-serif; /* Apply Inter font */
-  margin: 0;
-  padding: 0;
+  font-family: 'Inter', sans-serif; 
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('https://www.eschoolnews.com/files/2017/07/classroom.jpg'); /* Set background image */
-  background-size: cover; /* Cover the entire viewport */
-  background-position: center; /* Center the background */
+  background-image: url('https://www.eschoolnews.com/files/2017/07/classroom.jpg'); 
+  background-size: cover;
+  background-position: center; 
 }
 
 .whiteboard-container {
   position: relative;
-  width: 920px; /* Slightly larger than the canvas to accommodate borders */
-  background-color: #fff; /* Solid white background */
+  background-color: #fff; 
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
   padding: 20px;
+  
 }
-
 
 .controls {
   display: flex;
@@ -51,13 +47,13 @@ body {
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  background-color: #b28d66; /* Wood-toned color 10% darker */
+  background-color: #b28d66; 
   color: #fff;
   transition: background-color 0.3s ease;
 }
 
 .controls button:hover {
-  background-color: #9e7e57; /* Darker wood-toned color on hover */
+  background-color: #9e7e57; 
 }
 
 .canvas-wrapper {
@@ -101,7 +97,12 @@ canvas {
   color: #aaa;
 }
 
-/* Adjust title color based on background color */
 h1 {
-  color: rgba(var(--foreground-rgb), 0.8);
+  color:black;
+  font-size:x-large;
+  font-weight: bolder;
+  background-color: rgb(213, 171, 147);
+  padding: 1rem;
+  border-radius:1rem;
+  box-shadow:  0 4px 6px rgba(0, 0, 0, 0.3);
 }
