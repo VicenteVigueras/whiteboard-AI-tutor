@@ -8,14 +8,10 @@ export default function WhiteboardCanvas() {
     const [lineWidth, setLineWidth] = useState(3);
     const [drawingActions, setDrawingActions] = useState([]);
     const [currentPath, setCurrentPath] = useState([]);
-    const [showUploader, setShowUploader] = useState(false); // State to show/hide the file input
-    const [serverResponse, setServerResponse] = useState(""); // State to store the server response
+    const [showUploader, setShowUploader] = useState(false); 
+    const [serverResponse, setServerResponse] = useState(""); 
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        canvas.width = 900;
-        canvas.height = 500;
-    }, []);
+    
 
     useEffect(() => {
         const ctx = canvasRef.current.getContext('2d');
@@ -92,7 +88,7 @@ export default function WhiteboardCanvas() {
             }
         }).then(res => {
             console.log("Success:", res.data);
-            setServerResponse(JSON.stringify(res.data)); // Update the state with the server response
+            setServerResponse(JSON.stringify(res.data)); 
         }).catch(error => {
             console.error("Error:", error.response ? error.response.data : "Network error");
             setServerResponse("Failed to process image");
@@ -100,18 +96,20 @@ export default function WhiteboardCanvas() {
     };
 
     const toggleUploader = () => {
-        setShowUploader(!showUploader); // Toggle uploader visibility
+        setShowUploader(!showUploader); 
     };
 
     return (
         <div className="whiteboard-container">
             <canvas
                 ref={canvasRef}
+                width={900}
+                height={500}
                 onMouseDown={startDrawing}
                 onMouseMove={draw}
                 onMouseUp={endDrawing}
                 onMouseOut={endDrawing}
-                style={{ border: '1px solid black' }}
+                style={{ border: '1px solid black', width: '900px', height: '500px' }}
             />
             <div className="controls">
                 <input type="color" value={currentColor} onChange={e => setCurrentColor(e.target.value)} />
