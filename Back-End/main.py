@@ -2,29 +2,26 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
 import base64
 import requests
+import os
 
 app = Flask(__name__)
 
-# You can specify particular origins, methods, and headers
 CORS(app, resources={r"/process_image": {"origins": "*"}}, supports_credentials=True)
 
-# OpenAI API Key
-api_key = "include your API Key"
-
-#@app.route("/api_check")
-#def api_check():
-#   return jsonify({"success": "API Running"})
+api_key = os.getenv("OPENAI_API_KEY", "")
 
 @app.route('/process_image', methods=['POST', 'OPTIONS'])
-@cross_origin() # This decorator can be used to allow (on a per route basis) CORS
+@cross_origin()
 def process_image():
-    # Receive image file from the request
-    image_file = request.files['image']
+    if not api_key:
+        return jsonify({'error': 'OpenAI API key is disabled. To run this endpoint, set the OPENAI_API_KEY environment variable or add your key to Back-End/main.py.'}), 401
 
-    # Convert the image file to Base64
+    image_file = request.files.get('image')
+    if image_file is None:
+        return jsonify({'error': 'No image file provided'}), 400
+
     base64_image = base64.b64encode(image_file.read()).decode('utf-8')
 
-    # Setup headers and payload for OpenAI API
     headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {api_key}"
@@ -52,22 +49,17 @@ def process_image():
         "max_tokens": 300
     }
 
-    # Send the request to OpenAI
     response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
 
-    # Return the response from OpenAI
     if response.status_code == 200:
         response_data = response.json()
-        # Extracting just the content part of the response
         try:
             content = response_data['choices'][0]['message']['content']
-            #print(content)
             return jsonify({'content': content})
         except KeyError as e:
             return jsonify({'error': 'Failed to extract content', 'details': str(e)}), 500
     else:
         return jsonify({'error': 'Failed to process image', 'status_code': response.status_code}), response.status_code
 
-
 if __name__ == '__main__':
-    app.run(debug=True)  # Optional: only if you want to run in debug mode
+    app.run(debug=True)
