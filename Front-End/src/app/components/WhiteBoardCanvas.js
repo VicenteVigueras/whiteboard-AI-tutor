@@ -101,6 +101,7 @@ export default function WhiteboardCanvas() {
 
     return (
         <div className="whiteboard-container">
+            <h1 className="header-button whiteboard-tab flex text-4l font-bold mb-4">Whiteboard Assistant</h1>
             <canvas
                 ref={canvasRef}
                 width={900}
@@ -109,7 +110,7 @@ export default function WhiteboardCanvas() {
                 onMouseMove={draw}
                 onMouseUp={endDrawing}
                 onMouseOut={endDrawing}
-                style={{ border: '1px solid black', width: '900px', height: '500px' }}
+                style={{ border: '3px solid black', width: '900px', height: '500px', backgroundColor: '#fff' }}
             />
             <div className="controls">
                 <input type="color" value={currentColor} onChange={e => setCurrentColor(e.target.value)} />
